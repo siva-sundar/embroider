@@ -1,3 +1,5 @@
+import { getOptions } from 'loader-utils';
+
 import { applyVariantToTemplateCompiler, Variant } from '@embroider/core';
 
 export interface HbsLoaderOptions {
@@ -9,7 +11,7 @@ export interface HbsLoaderOptions {
 type LoaderContext = any;
 
 export default function hbsLoader(this: LoaderContext, templateContent: string) {
-  let { templateCompilerFile, variant } = this.getOptions(this) as HbsLoaderOptions;
+  let { templateCompilerFile, variant } = (getOptions(this) as unknown) as HbsLoaderOptions;
 
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   let templateCompiler = applyVariantToTemplateCompiler(variant, require(templateCompilerFile)).compile;
